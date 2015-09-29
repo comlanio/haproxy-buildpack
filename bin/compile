@@ -1,0 +1,37 @@
+#!/bin/sh
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+HAPROXY_VERSION=1.5.14
+HAPROXY_DIR=haproxy-${HAPROXY_VERSION}
+HAPROXY_ARCHIVE=${HAPROXY_DIR}.tar.gz
+
+
+if [ ! -d ${CACHE_DIR} ]; then
+  echo "Creating ${CACHE_DIR}"
+  mkdir ${CACHE_DIR} || exit 1
+fi
+
+if [ -f "${CACHE_DIR}/${HAPROXY_ARCHIVE}" ]; then
+  echo "Using file from cache: ${HAPROXY_ARCHIVE}"
+else
+  echo "Downloading file: ${HAPROXY_ARCHIVE}"
+  curl http://www.haproxy.org/download/$(echo ${HAPROXY_VERSION} | awk -F'.' '{ print $1"."$2"}')/src/haproxy-${HAPROXY_VERSION}.tar.gz > ${CACHE_DIR}/${HAPROXY_ARCHIVE} || exit 2
+fi
+
+if [ ! -d "${CACHE_DIR}/${HAPROXY_DIR}" ]; then
+  echo "Extracting..."
+  tar xzf ${CACHE_DIR}/${HAPROXY_ARCHIVE} -C ${CACHE_DIR} || exit 3
+fi
+
+if [! -f "${CACHE_DIR}/${HAPROXY_DIR}/haproxy" ]; then
+  echo "Compiling ${HAPROXY_DIR}..."
+  cd ${CACHE_DIR}/${HAPROXY_DIR} || exit 4
+  make TARGET=linux2628 USE_STATIC_PCRE=1 || exit 5
+fi
+
+cp ${CACHE_DIR}/${HAPROXY_DIR}/haproxy ${BUILD_DIR}/haproxy || exit 6
+
+echo "=-=-=-=-=-> Done."
+
+exit 0

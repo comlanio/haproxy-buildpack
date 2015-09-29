@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ -f "$0/haproxy.cfg" ]; then
+  echo "HAproxy"
+  exit 0
+else
+  exit 1
+fi
