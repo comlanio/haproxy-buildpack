@@ -1,2 +1,5 @@
 #!/bin/sh
-echo "--- {}"
+cat <<< EOF
+default_process_types:
+  web: start_haproxy.sh
+EOF
