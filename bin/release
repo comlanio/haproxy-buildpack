@@ -1,5 +1,5 @@
 #!/bin/sh
 cat << EOF
 default_process_types:
-  web: start_haproxy.sh
+  web: /home/vcap/app/start_haproxy.sh
 EOF
