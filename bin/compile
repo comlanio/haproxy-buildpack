@@ -30,8 +30,7 @@ if [ ! -f "${CACHE_DIR}/${HAPROXY_DIR}/haproxy" ]; then
 fi
 
 cp ${CACHE_DIR}/${HAPROXY_DIR}/haproxy ${BUILD_DIR}/haproxy || exit 6
-ls -al *
-cp $(dirname $0)../files/start_haproxy.sh ${BUILD_DIR}/start_haproxy.sh || exit 7
+cp $(dirname $0)/../files/start_haproxy.sh ${BUILD_DIR}/start_haproxy.sh || exit 7
 
 echo "=-=-=-=-=-> Done."
 
