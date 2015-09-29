@@ -16,7 +16,7 @@ if [ -f "${CACHE_DIR}/${HAPROXY_ARCHIVE}" ]; then
   echo "Using file from cache: ${HAPROXY_ARCHIVE}"
 else
   echo "Downloading file: ${HAPROXY_ARCHIVE}"
-  curl http://www.haproxy.org/download/$(echo ${HAPROXY_VERSION} | awk -F'.' '{ print $1"."$2"}')/src/haproxy-${HAPROXY_VERSION}.tar.gz > ${CACHE_DIR}/${HAPROXY_ARCHIVE} || exit 2
+  curl http://www.haproxy.org/download/$(echo ${HAPROXY_VERSION} | awk -F'.' '{ print $1"."$2}')/src/haproxy-${HAPROXY_VERSION}.tar.gz > ${CACHE_DIR}/${HAPROXY_ARCHIVE} || exit 2
 fi
 
 if [ ! -d "${CACHE_DIR}/${HAPROXY_DIR}" ]; then
