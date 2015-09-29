@@ -6,7 +6,6 @@ HAPROXY_VERSION=1.5.14
 HAPROXY_DIR=haproxy-${HAPROXY_VERSION}
 HAPROXY_ARCHIVE=${HAPROXY_DIR}.tar.gz
 
-
 if [ ! -d ${CACHE_DIR} ]; then
   echo "Creating ${CACHE_DIR}"
   mkdir ${CACHE_DIR} || exit 1
@@ -24,7 +23,7 @@ if [ ! -d "${CACHE_DIR}/${HAPROXY_DIR}" ]; then
   tar xzf ${CACHE_DIR}/${HAPROXY_ARCHIVE} -C ${CACHE_DIR} || exit 3
 fi
 
-if [! -f "${CACHE_DIR}/${HAPROXY_DIR}/haproxy" ]; then
+if [ ! -f "${CACHE_DIR}/${HAPROXY_DIR}/haproxy" ]; then
   echo "Compiling ${HAPROXY_DIR}..."
   cd ${CACHE_DIR}/${HAPROXY_DIR} || exit 4
   make TARGET=linux2628 USE_STATIC_PCRE=1 || exit 5
